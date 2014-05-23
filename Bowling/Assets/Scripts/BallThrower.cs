@@ -4,7 +4,7 @@ using System.Collections;
 public class BallThrower : MonoBehaviour {
 
 	public float _power = 0;
-	public float _throw = 10;
+	public float _throw = 20;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +14,7 @@ public class BallThrower : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.Space)) {
-			_power += _throw * 1000 * Time.deltaTime;
+			_power += _throw * Time.deltaTime;
 		}
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			StartCoroutine(ThrowBall());		
@@ -22,8 +22,9 @@ public class BallThrower : MonoBehaviour {
 	}
 
 	public IEnumerator ThrowBall() {
-		gameObject.constantForce.force = new Vector3 (0, 0, _power);
+		Vector3 movement = new Vector3 (0, 0, _power);
+		rigidbody.velocity = movement;
 		yield return 0;
-		gameObject.constantForce.force = Vector3.zero;
+//		gameObject.constantForce.force = Vector3.zero;
 	}
 }
