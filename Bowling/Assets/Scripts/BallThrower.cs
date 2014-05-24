@@ -5,6 +5,7 @@ public class BallThrower : MonoBehaviour {
 
 	public float _power = 0;
 	public float _throw = 20;
+	public bool thrown = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,9 +23,12 @@ public class BallThrower : MonoBehaviour {
 	}
 
 	public IEnumerator ThrowBall() {
-		Vector3 movement = new Vector3 (0, 0, _power);
-		rigidbody.velocity = movement;
-		yield return 0;
-//		gameObject.constantForce.force = Vector3.zero;
+		if (!thrown) {
+			thrown = true; //Do not throw anymore
+
+			Vector3 movement = new Vector3 (0, 0, _power);
+			rigidbody.velocity = movement;
+			yield return 0;
+		}
 	}
 }
