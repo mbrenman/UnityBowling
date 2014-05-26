@@ -13,8 +13,6 @@ public class BallThrower : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//This should not be set here, but should change like the position later on
-		this.transform.rotation = Quaternion.Euler(0f, 5f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -46,6 +44,7 @@ public class BallThrower : MonoBehaviour {
 				this.transform.position += offset;
 			}
 		}
+//		transform.rotation = transform.rotation * Quaternion.Euler(0f, 01f, 0f);
 	}
 
 
