@@ -4,7 +4,8 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	public GameObject _target;
-	public int _offset = -3;
+	public int _rotationOffset = -3;
+	public Vector3 verticalOffset = new Vector3(0f, 0f, 0f);
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +14,8 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.transform.rotation = _target.transform.rotation;
-		this.transform.position = _target.transform.position + (transform.forward * _offset);
+		transform.rotation = _target.transform.rotation;
+		transform.position = _target.transform.position + (transform.forward * _rotationOffset);
+		transform.position += new Vector3 (0, 1, 0);
 	}
 }
