@@ -10,7 +10,10 @@ public class BallThrower : MonoBehaviour {
 	bool changingRotation = true;
 	int  maxLaneWidth = 1;
 	int  minLaneWidth = -1;
-	bool increasingWidth = false;
+	bool increasingWidth = true;
+	bool increasingRotation = true;
+	int maxRotation = 30;
+	int minRotation = 330;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +31,7 @@ public class BallThrower : MonoBehaviour {
 			if (Input.GetKey (KeyCode.Space)) {
 				changingRotation = false;
 			}
+			changeBallRotation();
 		} else {
 			if (Input.GetKey (KeyCode.Space)) {
 				_power += _throw * Time.deltaTime;
@@ -53,22 +57,19 @@ public class BallThrower : MonoBehaviour {
 				this.transform.position += offset;
 			}
 		}
-//		transform.rotation = transform.rotation * Quaternion.Euler(0f, 01f, 0f);
 	}
 
 	void changeBallRotation() {
-		Vector3 offset = new Vector3(0.04f, 0, 0);
-		if (increasingWidth) {
-			this.transform.position += offset;
-			if (this.transform.position.x > maxLaneWidth) {	
-				increasingWidth = false;
-				this.transform.position -= offset;
+		if (increasingRotation) {
+			transform.rotation = transform.rotation * Quaternion.Euler(0f, 1f, 0f);
+			Debug.Log(transform.rotation.eulerAngles.y);
+			if (transform.rotation.eulerAngles.y > maxRotation && transform.rotation.eulerAngles.y < 60) {	
+				increasingRotation = false;
 			}
-		} else if (!increasingWidth) {
-			this.transform.position -= offset;
-			if (this.transform.position.x < minLaneWidth) {	
-				increasingWidth = true;
-				this.transform.position += offset;
+		} else if (!increasingRotation) {
+			transform.rotation = transform.rotation * Quaternion.Euler(0f, (-1f), 0f);
+			if (transform.rotation.eulerAngles.y < minRotation && transform.rotation.eulerAngles.y > 300) {	
+				increasingRotation = true;
 			}
 		}
 	}
