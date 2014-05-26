@@ -6,7 +6,8 @@ public class BallThrower : MonoBehaviour {
 	public float _power = 0;
 	public float _throw = 20;
 	bool thrown = false;
-	bool throwHasStarted = false;
+	bool changingLocation = true;
+	bool changingRotation = true;
 	int  maxLaneWidth = 1;
 	int  minLaneWidth = -1;
 	bool increasingWidth = false;
@@ -17,15 +18,23 @@ public class BallThrower : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {
-			throwHasStarted = true;
-			_power += _throw * Time.deltaTime;
-		}
-		if (Input.GetKeyUp (KeyCode.Space)) {
-			StartCoroutine(ThrowBall());		
-		}
-		if (!throwHasStarted) {
+
+		if (changingLocation) {
+			if (Input.GetKey (KeyCode.Space)) {
+				changingLocation = false;
+			}
 			ChangeBallLocation ();
+		} else if (changingRotation) {
+			if (Input.GetKey (KeyCode.Space)) {
+				changingRotation = false;
+			}
+		} else {
+			if (Input.GetKey (KeyCode.Space)) {
+				_power += _throw * Time.deltaTime;
+			}
+			if (Input.GetKeyUp (KeyCode.Space)) {
+				StartCoroutine(ThrowBall());		
+			}
 		}
 	}
 
@@ -45,6 +54,23 @@ public class BallThrower : MonoBehaviour {
 			}
 		}
 //		transform.rotation = transform.rotation * Quaternion.Euler(0f, 01f, 0f);
+	}
+
+	void changeBallRotation() {
+		Vector3 offset = new Vector3(0.04f, 0, 0);
+		if (increasingWidth) {
+			this.transform.position += offset;
+			if (this.transform.position.x > maxLaneWidth) {	
+				increasingWidth = false;
+				this.transform.position -= offset;
+			}
+		} else if (!increasingWidth) {
+			this.transform.position -= offset;
+			if (this.transform.position.x < minLaneWidth) {	
+				increasingWidth = true;
+				this.transform.position += offset;
+			}
+		}
 	}
 
 	public IEnumerator ThrowBall() {
