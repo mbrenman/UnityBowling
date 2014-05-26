@@ -13,6 +13,8 @@ public class BallThrower : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//This should not be set here, but should change like the position later on
+		this.transform.rotation = Quaternion.Euler(0f, 5f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -46,12 +48,13 @@ public class BallThrower : MonoBehaviour {
 		}
 	}
 
+
 	public IEnumerator ThrowBall() {
 		if (!thrown) {
-			thrown = true; //Do not throw anymore
-
-			Vector3 movement = new Vector3 (0, 0, _power);
-			rigidbody.velocity = movement;
+			//Do not throw anymore
+			thrown = true; 
+			//Rotate the throw by the rotation angle
+			rigidbody.velocity = transform.forward * _power;
 			yield return 0;
 		}
 	}
