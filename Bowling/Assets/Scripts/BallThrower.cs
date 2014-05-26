@@ -25,11 +25,11 @@ public class BallThrower : MonoBehaviour {
 			StartCoroutine(ThrowBall());		
 		}
 		if (!throwHasStarted) {
-			SetUpBallLocation ();
+			ChangeBallLocation ();
 		}
 	}
 
-	void SetUpBallLocation() {
+	void ChangeBallLocation() {
 		Vector3 offset = new Vector3(0.04f, 0, 0);
 		if (increasingWidth) {
 			this.transform.position += offset;
@@ -46,7 +46,6 @@ public class BallThrower : MonoBehaviour {
 		}
 //		transform.rotation = transform.rotation * Quaternion.Euler(0f, 01f, 0f);
 	}
-
 
 	public IEnumerator ThrowBall() {
 		if (!thrown) {
