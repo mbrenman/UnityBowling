@@ -5,6 +5,7 @@ public class BallThrower : MonoBehaviour {
 
 	public float _power = 0;
 	public float _throw = 20;
+	public bool _hittingPins = false;
 	bool thrown = false;
 	bool changingLocation = true;
 	bool changingRotation = true;
@@ -62,7 +63,7 @@ public class BallThrower : MonoBehaviour {
 	void changeBallRotation() {
 		if (increasingRotation) {
 			transform.rotation = transform.rotation * Quaternion.Euler(0f, 1f, 0f);
-			Debug.Log(transform.rotation.eulerAngles.y);
+//			Debug.Log(transform.rotation.eulerAngles.y);
 			if (transform.rotation.eulerAngles.y > maxRotation && transform.rotation.eulerAngles.y < 60) {	
 				increasingRotation = false;
 			}
@@ -74,6 +75,12 @@ public class BallThrower : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter(Collision collision) {
+		if (collision.collider.gameObject.name == "Cylinder") {
+			_hittingPins = true;
+		}
+	}
+	
 	public IEnumerator ThrowBall() {
 		if (!thrown) {
 			//Do not throw anymore
