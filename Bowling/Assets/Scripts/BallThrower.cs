@@ -23,24 +23,31 @@ public class BallThrower : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (changingLocation) {
-			if (Input.GetKey (KeyCode.Space)) {
-				changingLocation = false;
+//		if (Input.touchCount == 1) {
+//			Touch touch = Input.GetTouch(0);
+			if (changingLocation) {
+				if (Input.GetKey (KeyCode.Space)) {
+//				if (touch.phase == TouchPhase.Began) {
+					changingLocation = false;
+				}
+				ChangeBallLocation ();
+			} else if (changingRotation) {
+				if (Input.GetKey (KeyCode.Space)) {
+//				if (touch.phase == TouchPhase.Began) {
+					changingRotation = false;
+				}
+				changeBallRotation();
+			} else {
+				if (Input.GetKey (KeyCode.Space)) {
+//				if (touch.phase == TouchPhase.Began) {
+					_power += _throw * Time.deltaTime;
+				}
+				if (Input.GetKeyUp (KeyCode.Space)) {
+//				if (touch.phase == TouchPhase.Ended) {
+					StartCoroutine(ThrowBall());
+				}
 			}
-			ChangeBallLocation ();
-		} else if (changingRotation) {
-			if (Input.GetKey (KeyCode.Space)) {
-				changingRotation = false;
-			}
-			changeBallRotation();
-		} else {
-			if (Input.GetKey (KeyCode.Space)) {
-				_power += _throw * Time.deltaTime;
-			}
-			if (Input.GetKeyUp (KeyCode.Space)) {
-				StartCoroutine(ThrowBall());		
-			}
-		}
+//		}
 	}
 
 	void ChangeBallLocation() {
@@ -87,7 +94,8 @@ public class BallThrower : MonoBehaviour {
 			thrown = true; 
 			//Rotate the throw by the rotation angle
 			rigidbody.velocity = transform.forward * _power;
-			yield return 0;
+			yield return new WaitForSeconds(5);
+			Application.LoadLevel(Application.loadedLevel);
 		}
 	}
 }
