@@ -83,7 +83,7 @@ public class BallThrower : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.gameObject.name == "Cylinder") {
+		if (collision.collider.gameObject.name == "BowlingPin") {
 			_hittingPins = true;
 		}
 	}
