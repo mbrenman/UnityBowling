@@ -3,18 +3,20 @@ using System.Collections;
 
 public class BallThrower : MonoBehaviour {
 
-	public float _power = 0;
 	public float _throw = 20;
 	public bool _hittingPins = false;
-	bool thrown = false;
-	bool changingLocation = true;
-	bool changingRotation = true;
-	int  maxLaneWidth = 1;
-	int  minLaneWidth = -1;
-	bool increasingWidth = true;
-	bool increasingRotation = true;
-	int maxRotation = 30;
-	int minRotation = 330;
+	public float maxPower = 10f;
+
+	private float _power = 0;
+	private bool thrown = false;
+	private bool changingLocation = true;
+	private bool changingRotation = true;
+	private int  maxLaneWidth = 1;
+	private int  minLaneWidth = -1;
+	private bool increasingWidth = true;
+	private bool increasingRotation = true;
+	private int maxRotation = 30;
+	private int minRotation = 330;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +46,7 @@ public class BallThrower : MonoBehaviour {
 				}
 			if (Input.GetKeyUp (KeyCode.Space)) {
 //				if (touch.phase == TouchPhase.Ended) {
+					_power = Mathf.Min(_power,maxPower);
 					StartCoroutine(ThrowBall());
 				}
 			}
