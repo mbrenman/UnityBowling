@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_target = GameObject.Find ("Ball"); // Follow the ball
+		_target = GameObject.Find ("BowlingBall"); // Follow the ball
 		ballScript = _target.GetComponent<BallThrower> ();
 	}
 
