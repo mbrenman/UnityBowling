@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!ballScript._hittingPins) {
-			transform.rotation = _target.transform.rotation;
+			//transform.rotation = _target.transform.rotation;
 			transform.position = _target.transform.position + (transform.forward * _rotationOffset);
 			transform.position += new Vector3 (0, 1, 0);
 		}

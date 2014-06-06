@@ -42,7 +42,7 @@ public class BallThrower : MonoBehaviour {
 //				if (touch.phase == TouchPhase.Began) {
 					_power += _throw * Time.deltaTime;
 				}
-				if (Input.GetKeyUp (KeyCode.Space)) {
+			if (Input.GetKeyUp (KeyCode.Space)) {
 //				if (touch.phase == TouchPhase.Ended) {
 					StartCoroutine(ThrowBall());
 				}
